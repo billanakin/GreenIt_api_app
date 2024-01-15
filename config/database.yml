@@ -18,10 +18,14 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("GREEN_IT_API_DATABASE_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("GREEN_IT_API_DATABASE_PORT") { 5432 } %>
+  username: <%= ENV.fetch("GREEN_IT_API_DATABASE_USERNAME") %>
+  password: <%= ENV.fetch("GREEN_IT_API_DATABASE_PASSWORD") %>
 
 development:
   <<: *default
-  database: green_it_api_development
+  database: greenit_api_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -55,7 +59,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: green_it_api_test
+  database: greenit_api_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,6 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: green_it_api_production
-  username: green_it_api
-  password: <%= ENV["GREEN_IT_API_DATABASE_PASSWORD"] %>
+  database: greenit_api_production

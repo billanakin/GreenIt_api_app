@@ -1,24 +1,12 @@
-# README
+# GreenIT API Server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A REST API Server for the GreentIT Project
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+- Ruby version 3.2.2
+- PostgreSQL
 
-* System dependencies
+## Development Setup
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Deployment
