@@ -42,6 +42,14 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "dotenv-rails"
   gem "faker"
+
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.6", require: false
+  gem "capistrano-rbenv", "~> 2.2", require: false
+  gem "capistrano-bundler", "~> 2.0", require: false
+  gem "capistrano-passenger", require: false
+  gem "ed25519", ">= 1.2", "< 2.0", require: false
+  gem "bcrypt_pbkdf", ">= 1.0", "< 2.0", require: false
 end
 
 group :development do
