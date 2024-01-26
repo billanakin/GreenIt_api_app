@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   resources :sessions, only: %i[create] do
     delete :destroy, on: :collection
   end
+
+  resources :posts do
+    get :recent, on: :collection
+  end
 end
