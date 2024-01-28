@@ -1,6 +1,6 @@
 class PostImage < ApplicationRecord
-  IMAGE_MAX_SIZE = 10.megabyte
-  ACCEPTABLE_IMAGE_TYPES = [
+  IMAGE_MAX_SIZE = 3.megabytes
+  ACCEPTABLE_IMAGE_TYPES = [ 
     "image/jpeg",
     "image/png"
   ].freeze
@@ -17,12 +17,12 @@ class PostImage < ApplicationRecord
   def image_size_validation
     return if image.blob.byte_size <= IMAGE_MAX_SIZE
 
-    errors.add(:image, "is greater than 10MB")
+    errors.add(:image, :invalid_size, message: "is greater than 3MB", options: { rank: rank, limit_in_bytes: IMAGE_MAX_SIZE })
   end
 
   def image_type_validation
     return if ACCEPTABLE_IMAGE_TYPES.include?(image.content_type)
 
-    errors.add(:image, "must be a JPEG or PNG")
+    errors.add(:image, :invalid_type, message: "must be a JPEG or PNG", options: { rank: rank })
   end
 end

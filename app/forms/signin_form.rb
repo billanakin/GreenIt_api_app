@@ -1,4 +1,4 @@
-class Signin < ActiveType::Object
+class SigninForm < ActiveType::Object
   attr_reader :user, :auth_token
 
   attribute :email, :string
@@ -10,13 +10,6 @@ class Signin < ActiveType::Object
   validate :email_password_exists_validation
 
   after_save :set_auth_token
-
-  def as_json(options = {})
-    {
-      user: @user.as_json(only: %i[id email first_name last_name]),
-      auth_token: auth_token
-    }
-  end
 
   private
 

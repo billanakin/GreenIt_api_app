@@ -3,21 +3,37 @@ class CreatePostForm < ActiveType::Record[Post]
   attribute :longitude, :string
   attribute :images, :array
 
-  before_validation :set_geo_location
+  validates :latitude, presence: true
+  validates :longitude, presence: true
+
   before_validation :set_images
+  before_create :set_geo_location
 
   private
 
   def set_geo_location
-    return if latitude.blank? || longitude.blank?
-
     write_attribute(:geo_location, [latitude, longitude])
   end
 
   def set_images
     return if images.blank?
-    @image_tempfiles = []
+
+    images.sort_by! { |image_hash| image_hash[:rank] }
+    assign_unique_ranks!(images)
+
     images.each { |image_hash| set_image(image_hash) }
+  end
+
+  def sort_images(images)
+    images.sort_by! { |image_hash| image_hash[:rank] }
+  end
+
+  def assign_unique_ranks!(images)
+    rank = 0
+    images.each do |image_hash|
+      image_hash[:rank] = rank
+      rank += 1
+    end
   end
 
   def set_image(image_hash)
@@ -28,8 +44,6 @@ class CreatePostForm < ActiveType::Record[Post]
 
     post_image = post_images.build(rank: rank)
     post_image.image.attach(io: image_tempfile, filename: SecureRandom.hex)
-
-    @image_tempfiles << image_tempfile
   end
 
   def convert_data_uri_to_image_tempfile(data_uri)
