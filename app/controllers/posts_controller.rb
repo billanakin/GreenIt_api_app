@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: %i[from_friends create]
+  before_action :authenticate_user!, only: %i[create]
 
   def trending
     @pagy, @trending_posts = pagy(Post.trending)
   end
 
   def near_me
-    @pagy, @near_me_posts = pagy(Post.near_me(**near_me_params))
+    @pagy, @near_me_posts = pagy(Post.near_me)
   end
 
   def latest
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
   end
 
   def from_friends
-    @pagy, @from_friends_posts = pagy(Post.from_friends(current_user_id))
+    @pagy, @from_friends_posts = pagy(Post.from_friends)
   end
 
   def create
