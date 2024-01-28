@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActiveStorage::SetCurrent
   include Pagy::Backend
 
   protected

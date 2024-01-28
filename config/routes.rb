@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   end
 
   resources :posts do
-    get :recent, on: :collection
+    get :trending, on: :collection
+    get :near_me, on: :collection
+    get :latest, on: :collection
+    get :recommended, on: :collection
+    get :friends, on: :collection
   end
 end
