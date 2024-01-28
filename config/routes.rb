@@ -16,6 +16,6 @@ Rails.application.routes.draw do
     get :near_me, on: :collection
     get :latest, on: :collection
     get :recommended, on: :collection
-    get :friends, on: :collection
+    get :from_friends, on: :collection
   end
 end
