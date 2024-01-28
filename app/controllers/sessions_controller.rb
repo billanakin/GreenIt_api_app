@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :authenticate_user!, only: %i[destroy]
+
   def create
     signin = Signin.new(signin_params)
     if signin.save
