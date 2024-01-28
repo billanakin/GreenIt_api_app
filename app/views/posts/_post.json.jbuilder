@@ -7,5 +7,5 @@ json.author do
   json.partial! 'users/post', user: post.user
 end
 json.images do
-  json.array! post.post_images, partial: 'post_images/post_image', as: :post_image
+  json.array! post.post_images.order(rank: :asc), partial: 'post_images/post_image', as: :post_image
 end
