@@ -1,10 +1,10 @@
 class SignupsController < ApplicationController
   def create
-    signup = Signup.new(signup_params)
-    if signup.save
-      render json: { data: signup }
+    @signup_form = SignupForm.new(signup_params)
+    if @signup_form.save
+      render :create
     else
-      render json: { data: signup.errors }, status: :unprocessable_entity
+      render :create_errors, status: :unprocessable_entity
     end
   end
 

@@ -51,9 +51,7 @@ class JwtToken
     def invalidated?(token_id)
       redis_token_id = $redis.get(redis_key(token_id))
 
-      return false if redis_token_id.nil?
-
-      $redis.del(redis_key(token_id))
+      !redis_token_id.nil?
     end
   end
 end

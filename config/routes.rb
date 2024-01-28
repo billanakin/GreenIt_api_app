@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :signups, only: %i[create]
   resources :sessions, only: %i[create] do
+    get    :show, on: :collection
     delete :destroy, on: :collection
   end
 

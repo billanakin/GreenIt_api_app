@@ -1,22 +1,23 @@
 class SessionsController < ApplicationController
-  before_action :authenticate_user!, only: %i[destroy]
+  before_action :authenticate_user!, only: %i[show destroy]
+
+  def show
+    render :show
+  end
 
   def create
-    signin = Signin.new(signin_params)
-    if signin.save
-      render json: { data: signin }
+    @signin_form = SigninForm.new(signin_params)
+    if @signin_form.save
+      render :create
     else
-      render json: { data: signin.errors }, status: :unprocessable_entity
+      render :create_errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    signout = Signout.new(auth_token: current_user_auth_token)
-    if signout.save
-      render json: { data: signout }
-    else
-      render json: { data: signout.errors }, status: :unprocessable_entity
-    end
+    @signout_form = SignoutForm.new(auth_token: current_user_auth_token)
+
+    @signout_form.save!
   end
 
   private

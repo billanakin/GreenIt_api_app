@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: %i[near_me from_friends create]
+  before_action :authenticate_user!, only: %i[from_friends create]
 
   def trending
     @pagy, @trending_posts = pagy(Post.trending)
   end
 
   def near_me
-    @pagy, @near_me_posts = pagy(Post.near_me(current_user_id))
+    @pagy, @near_me_posts = pagy(Post.near_me(**near_me_params))
   end
 
   def latest
@@ -22,12 +22,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    create_post_form = CreatePostForm.new(create_params)
-    create_post_form.user = current_user
-    if create_post_form.save
-      render partial: 'post', locals: { post: create_post_form }
+    @create_post_form = CreatePostForm.new(create_params)
+    @create_post_form.user = current_user
+    if @create_post_form.save
+      render :create
     else
-      render partial: 'post_errors', locals: { post: create_post_form }, status: :unprocessable_entity
+      render :create_errors, status: :unprocessable_entity
     end
   end
 
@@ -41,5 +41,9 @@ class PostsController < ApplicationController
       :longitude,
       images: %i[rank data_uri]
     )
+  end
+
+  def near_me_params
+    [params.require(:latitude), params.require(:longitude)]
   end
 end
