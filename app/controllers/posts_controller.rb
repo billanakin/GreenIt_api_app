@@ -25,9 +25,9 @@ class PostsController < ApplicationController
     create_post_form = CreatePostForm.new(create_params)
     create_post_form.user = current_user
     if create_post_form.save
-      render json: { data: create_post_form }
+      render partial: 'post', locals: { post: create_post_form }
     else
-      render json: { data: create_post_form.errors }, status: :unprocessable_entity
+      render partial: 'post_errors', locals: { post: create_post_form }, status: :unprocessable_entity
     end
   end
 
