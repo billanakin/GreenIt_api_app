@@ -14,5 +14,6 @@ end
 json.images do
   json.array! post.post_images.order(rank: :asc), partial: 'post_images/post_image', as: :post_image
 end
+json.comments_count post.comments_count
 json.created_at post.created_at
 json.updated_at post.updated_at
