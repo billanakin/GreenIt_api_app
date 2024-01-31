@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     get :latest, on: :collection
     get :recommended, on: :collection
     get :from_friends, on: :collection
+
+    resources :comments
   end
 end
