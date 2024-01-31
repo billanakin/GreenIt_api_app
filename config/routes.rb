@@ -19,5 +19,6 @@ Rails.application.routes.draw do
     get :from_friends, on: :collection
 
     resources :comments
+    resources :likes
   end
 end
