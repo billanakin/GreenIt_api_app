@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :shares
   end
 
+  resources :follows
+
   resources :users, only: %i[] do
     resources :posts, controller: :user_posts do
       get :commented, on: :collection
