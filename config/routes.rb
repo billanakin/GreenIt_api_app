@@ -20,5 +20,6 @@ Rails.application.routes.draw do
 
     resources :comments
     resources :likes
+    resources :shares
   end
 end
