@@ -16,5 +16,6 @@ json.images do
 end
 json.comments_count post.comments_count
 json.likes_count post.likes_count
+json.shares_count post.shares_count
 json.created_at post.created_at
 json.updated_at post.updated_at
