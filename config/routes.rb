@@ -22,4 +22,12 @@ Rails.application.routes.draw do
     resources :likes
     resources :shares
   end
+
+  resources :users, only: %i[] do
+    resources :posts, controller: :user_posts do
+      get :commented, on: :collection
+      get :shared, on: :collection
+      get :liked, on: :collection
+    end
+  end
 end

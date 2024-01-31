@@ -3,8 +3,11 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :commented_posts, through: :comments, source: :post
   has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
   has_many :shares, dependent: :destroy
+  has_many :shared_posts, through: :shares, source: :post
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :first_name, presence: true
