@@ -1,4 +1,4 @@
-class SigninForm < ActiveType::Object
+class Session::CreateForm < ActiveType::Object
   attr_reader :user, :auth_token
 
   attribute :email, :string

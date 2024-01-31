@@ -1,4 +1,4 @@
-class SignoutForm < ActiveType::Object
+class Session::DestroyForm < ActiveType::Object
   attr_reader :invalidated_payload
 
   attribute :auth_token
