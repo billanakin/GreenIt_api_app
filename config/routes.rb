@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :follows
 
-  resources :users, only: %i[] do
+  resources :users, only: %i[show update] do
     resources :posts, controller: :user_posts do
       get :commented, on: :collection
       get :shared, on: :collection
