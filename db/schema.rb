@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_31_130717) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_31_162054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_130717) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "from_user_id"
+    t.bigint "to_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_user_id", "to_user_id"], name: "index_follows_on_from_user_id_and_to_user_id", unique: true
+    t.index ["from_user_id"], name: "index_follows_on_from_user_id"
+    t.index ["to_user_id"], name: "index_follows_on_to_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -102,6 +112,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_130717) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "profile_pic_url"
+    t.integer "following_count", default: 0, null: false
+    t.integer "follower_count", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
