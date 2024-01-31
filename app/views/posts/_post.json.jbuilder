@@ -3,6 +3,7 @@ json.title post.title
 json.body post.body
 json.latitude post.geo_location&.x
 json.longitude post.geo_location&.y
+json.address post.address
 if current_user?(post.user)
   json.author :me
 else
