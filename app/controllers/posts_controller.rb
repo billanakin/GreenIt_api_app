@@ -39,6 +39,7 @@ class PostsController < ApplicationController
       :body,
       :latitude,
       :longitude,
+      :address,
       images: %i[rank data_uri]
     )
   end
