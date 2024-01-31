@@ -22,13 +22,18 @@ class PostsController < ApplicationController
   end
 
   def create
-    @create_post_form = CreatePostForm.new(create_params)
-    @create_post_form.user = current_user
-    if @create_post_form.save
+    @create_form = Post::CreateForm.new(create_params)
+    @create_form.user = current_user
+    if @create_form.save
       render :create
     else
       render :create_errors, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @post = current_user.posts.find(params[:id])
+    @post.destroy!
   end
 
   private

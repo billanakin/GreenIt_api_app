@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @signin_form = SigninForm.new(signin_params)
-    if @signin_form.save
+    @create_form = Session::CreateForm.new(signin_params)
+    if @create_form.save
       render :create
     else
       render :create_errors, status: :unprocessable_entity
@@ -15,9 +15,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @signout_form = SignoutForm.new(auth_token: current_user_auth_token)
+    @destroy_form = Session::DestroyForm.new(auth_token: current_user_auth_token)
 
-    @signout_form.save!
+    @destroy_form.save!
   end
 
   private

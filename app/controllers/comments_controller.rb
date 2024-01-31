@@ -7,10 +7,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @create_comment_form = CreateCommentForm.new(create_params)
-    @create_comment_form.user = current_user
-    @create_comment_form.post = post
-    if @create_comment_form.save
+    @comment = post.comments.build(create_params)
+    @comment.user = current_user
+    @comment.post = post
+    if @comment.save
       render :create
     else
       render :create_errors, status: :unprocessable_entity

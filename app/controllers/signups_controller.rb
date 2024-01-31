@@ -1,6 +1,6 @@
 class SignupsController < ApplicationController
   def create
-    @signup_form = SignupForm.new(signup_params)
+    @signup_form = Signup::Form.new(signup_params)
     if @signup_form.save
       render :create
     else

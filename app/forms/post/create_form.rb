@@ -1,4 +1,4 @@
-class CreatePostForm < ActiveType::Record[Post]
+class Post::CreateForm < ActiveType::Record[Post]
   attribute :latitude, :string
   attribute :longitude, :string
   attribute :images, :array
