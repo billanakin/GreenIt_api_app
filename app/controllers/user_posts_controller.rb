@@ -2,6 +2,10 @@ class UserPostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
 
+  def index
+    @pagy, @posts = pagy(user.posts)
+  end
+
   def commented
     @pagy, @commented_posts = pagy(user.commented_posts)
   end
@@ -25,6 +29,11 @@ class UserPostsController < ApplicationController
   end
 
   def set_user
-    @user = User.find(user_id_param)
+    @user =
+      if user_id_param == 'me'
+        current_user
+      else
+        User.find(user_id_param)
+      end
   end
 end
