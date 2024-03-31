@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_31_162054) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_31_175214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,6 +91,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_162054) do
     t.integer "comments_count", default: 0, null: false
     t.integer "likes_count", default: 0, null: false
     t.integer "shares_count", default: 0, null: false
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.index ["geo_location"], name: "posts_geo_location_idx", using: :gist
+    t.index ["geo_location"], name: "posts_geo_location_idx1", using: :gist
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

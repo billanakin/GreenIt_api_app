@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create]
+  before_action :authenticate_user!, only: %i[create from_friends]
 
   def trending
     @pagy, @trending_posts = pagy(Post.trending)
   end
 
   def near_me
-    @pagy, @near_me_posts = pagy(Post.near_me)
+    @pagy, @near_me_posts = pagy(Post.near(near_me_current_location_param, near_me_distance_in_miles_param))
   end
 
   def latest
@@ -18,11 +18,11 @@ class PostsController < ApplicationController
   end
 
   def from_friends
-    @pagy, @from_friends_posts = pagy(Post.from_friends)
+    @pagy, @from_friends_posts = pagy(Post.from_friends(current_user))
   end
 
   def create
-    @create_form = Post::CreateForm.new(create_params)
+    @create_form = Post::CreateForm.new(create_param)
     @create_form.user = current_user
     if @create_form.save
       render :create
@@ -38,7 +38,7 @@ class PostsController < ApplicationController
 
   private
 
-  def create_params
+  def create_param
     params.require(:post).permit(
       :title,
       :body,
@@ -49,7 +49,11 @@ class PostsController < ApplicationController
     )
   end
 
-  def near_me_params
+  def near_me_current_location_param
     [params.require(:latitude), params.require(:longitude)]
+  end
+
+  def near_me_distance_in_miles_param
+    params[:distance_in_miles] || Post::DEFAULT_NEAR_ME_DISTANCE_IN_MILES
   end
 end
