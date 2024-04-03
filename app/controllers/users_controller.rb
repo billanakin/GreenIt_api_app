@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
-  before_action :ensure_current_user, only: %i[update]
+  before_action :ensure_current_user, only: %i[show update]
 
   def show
   end

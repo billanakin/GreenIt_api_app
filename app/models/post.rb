@@ -22,6 +22,7 @@ class Post < ApplicationRecord
   private
 
   def update_latitude_and_longitude
+    return if destroyed?
     return if geo_location.blank?
 
     update_column(:latitude, geo_location.x)
